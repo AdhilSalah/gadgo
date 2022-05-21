@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-kt%pv45&a%=7-1n16%-z00+&g=#a2(xq&b02n3)6_)#p)0-==2
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # Application definition
 
@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'elctro.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'myproject',
+        'NAME': 'electro',
         'USER': 'postgres',
         'PASSWORD': '503070',
         'HOST': 'localhost',
