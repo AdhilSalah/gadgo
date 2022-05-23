@@ -8,6 +8,7 @@ class CustomUser(AbstractUser):
     email=models.EmailField(unique=True)
     Phone_number = models.CharField(max_length=12,null=True)
     is_email_verified = models.BooleanField(default=False)
+    otp  = models.CharField(max_length=4,null=True,blank=True)
 
     objects = UserManager()
 
