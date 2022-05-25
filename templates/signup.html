@@ -57,11 +57,11 @@
             }
         </style>
 
-        <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5"style="height:100vh;">
+        <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5" style="height:100vh;">
             <div class="row gx-lg-5 align-items-center mb-5">
                 <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
                     <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
-                        Lets start  <br />
+                        Lets start <br />
                         <span style="color: hsl(218, 81%, 75%)">create your account on</span><br>
                         <span style="color: hsl(330, 51%, 48%)">Gadgo.</span>
                     </h1>
@@ -73,49 +73,65 @@
                 <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
                     <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
                     <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+                    
 
                     <div class="card bg-glass">
+                        {% for message in messages %}
+                        <div class="alert alert-danger" role="alert">
+                            {{message}}
+                            {% endfor %}
+                      
+                     
+                              
                         <div class="card-body px-4 py-5 px-md-5">
-                            <form>
+                            
+                            <form method="post">
+                                {%csrf_token%}
+                              
                                 <!-- 2 column grid layout with text inputs for the first and last names -->
 
                                 <!-- Email input -->
                                 <div class="form-outline mb-4">
-                                    <input type="email" id="form3Example3" class="form-control" />
+                                    <input type="email" name="email" id="form3Example3" class="form-control" required/>
                                     <label class="form-label" for="form3Example3">Email address</label>
                                 </div>
                                 <div class="form-outline mb-4">
-                                    <input type="name" id="form3Example3" class="form-control" />
-                                    <label class="form-label" for="form3Example3">Name</label>
+                                    <input type="name" name="first_name" id="form3Example3" class="form-control" required />
+                                    <label class="form-label" for="form3Example3">First Name</label>
                                 </div>
                                 <div class="form-outline mb-4">
-                                    <input type="username" id="form3Example3" class="form-control" />
-                                    <label class="form-label" for="form3Example3">username</label>
+                                    <input type="name" name="last_name" id="form3Example3" class="form-control" required/>
+                                    <label class="form-label" for="form3Example3">Last Name</label>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <input id="form3Example3" name="phone_number" class="form-control" required />
+                                    <label class="form-label" for="form3Example3">Phone Number</label>
                                 </div>
                                 <div class="form-outline mb-4">
-                                    <input type="password" id="form3Example3" class="form-control" />
+                                    <input type="password" name="password1" id="form3Example3" class="form-control" required/>
                                     <label class="form-label" for="form3Example3">password</label>
                                 </div>
 
                                 <!-- Password input -->
                                 <div class="form-outline mb-4">
-                                    <input type="password" id="form3Example4" class="form-control" />
+                                    <input type="password" name="password2" id="form3Example4" class="form-control" required/>
                                     <label class="form-label" for="form3Example4"> Enter Password Again</label>
                                 </div>
 
                                 <!-- Checkbox -->
 
                                 <!-- Submit button -->
-                                <button type="submit" class="btn btn-danger btn-block w-10px mb-4"style="width: 32vw;">
+                                <button type="submit" class="btn btn-danger btn-block w-10px mb-4" style="width: 32vw;">
                                     Signup
                                 </button>
-                                
+
                             </form>
-                            
 
 
-                                <!-- Register buttons -->
-                                
+
+                            <!-- Register buttons -->
+
                         </div>
                     </div>
                 </div>

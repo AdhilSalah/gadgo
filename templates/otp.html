@@ -57,7 +57,7 @@
             }
         </style>
 
-        <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5"style="height:100vh;">
+        <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5" style="height:100vh;">
             <div class="row gx-lg-5 align-items-center mb-5">
                 <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
                     <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
@@ -75,48 +75,32 @@
                     <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
 
                     <div class="card bg-glass">
-                        {% for message in messages %}
-                        <div class="alert alert-danger" role="alert">
-                            {{message}}
-                            {% endfor %}
                         <div class="card-body px-4 py-5 px-md-5">
-
-                            
                             <form method="post">
-                              
                                 {%csrf_token%}
-
-
                                 <!-- 2 column grid layout with text inputs for the first and last names -->
 
                                 <!-- Email input -->
                                 <div class="form-outline mb-4">
-                                    <input type="email" id="form3Example3" name="email"class="form-control" />
-                                    <label class="form-label" for="form3Example3">Email address</label>
+                                    <input id="form3Example3" name="otp" class="form-control" />
+                                    <label class="form-label" for="form3Example3">OTP</label>
                                 </div>
 
                                 <!-- Password input -->
-                                <div class="form-outline mb-4">
-                                    <input type="password" id="form3Example4" name="password"class="form-control" />
-                                    <label class="form-label" for="form3Example4">Password</label>
-                                </div>
 
                                 <!-- Checkbox -->
 
                                 <!-- Submit button -->
-                                <button type="submit" class="btn btn-danger btn-block w-10px mb-4"style="width: 32vw;">
-                                    Login
+                                <button type="submit" class="btn btn-danger btn-block w-10px mb-4" style="width: 32vw;">
+                                    submit
                                 </button>
-                                <P>Don't have a account ?</P>
-                                <a type="button" href="{% url 'signup'%}" class="btn btn-info btn-block w-10px mb-4">
-                                    signup
-                                </a>
+
                             </form>
-                            
 
 
-                                <!-- Register buttons -->
-                                
+
+                            <!-- Register buttons -->
+
                         </div>
                     </div>
                 </div>

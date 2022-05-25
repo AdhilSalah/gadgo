@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-kt%pv45&a%=7-1n16%-z00+&g=#a2(xq&b02n3)6_)#p)0-==2
 DEBUG = True
 
 ALLOWED_HOSTS = []
-AUTH_USER_MODEL = 'accounts.CustomUser'
+
 
 # Application definition
 
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'category',
     'accounts',
-    'rest_framework',
+    
 ]
 
 MIDDLEWARE = [
@@ -74,13 +74,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'elctro.wsgi.application'
 
 
+AUTH_USER_MODEL = 'accounts.Account'
+
+
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'electro',
+        'NAME': 'project',
         'USER': 'postgres',
         'PASSWORD': '503070',
         'HOST': 'localhost',
@@ -142,9 +145,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smpt.EmailBackend'
-EMAIL_HOST = 'smpt.gmail.com'
-EMAIL_USE_TLS =True
-EMAIL_PORT =587
-EMAIL_HOST_USER ='iamadhilsalah@gmail.com'
-EMAIL_HOST_PASSWORD ='Adhil@2001'
+
+
+
+ACCOUNT_SID ='ACfb19a27d6e30d157152972351faa6784'
+AUTH_TOKEN ='373f622b11ebac83aed8676b0b704eb0'
