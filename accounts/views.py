@@ -1,8 +1,10 @@
 
 import random
+from unicodedata import category
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
-from elctro.views import home
+from category.models import Category
+from store.models import Product
 from .mixins import *
 from .models import *
 from django.contrib import messages
@@ -68,7 +70,15 @@ def otpverify(request):
 
 def home(request):
 
-    return render(request,'index.html') 
+    products=Product.objects.all().filter(is_available=True)
+    category =Category.objects.all()
+
+    context={
+        'products':products,
+        'category':category,
+    }
+
+    return render(request,'index.html',context) 
 
 
 
