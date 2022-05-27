@@ -194,7 +194,7 @@
 								</div>
 								<div class="product-body">
 									<p class="product-category">{{products.category}}</p>
-									<h3 class="product-name"><a href="#">{{products.product_name}}</a></h3>
+									<h3 class="product-name"><a href="{{products.get_url}}">{{products.product_name}}</a></h3>
 									<h4 class="product-price">${{products.price}} <del class="product-old-price">$990.00</del></h4>
 									<div class="product-rating">
 										<i class="fa fa-star"></i>
@@ -213,8 +213,8 @@
 									</div>
 								</div>
 								<div class="add-to-cart">
-									<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to
-										cart</button>
+									<a href="{%url 'add_cart' products.id %}"><button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to
+										cart</button></a>
 								</div>
 							</div>
 						</div>

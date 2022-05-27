@@ -80,19 +80,22 @@
 						</div>
 
 						<div class="add-to-cart">
-							<div class="qty-label">
+							<!-- <div class="qty-label">
 								Qty
 								<div class="input-number">
 									<input type="number">
 									<span class="qty-up">+</span>
 									<span class="qty-down">-</span>
 								</div>
-							</div>
+							</div> -->
 							{%if single_product.stock  <= 0 %}
 
 							<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Out Of Stock</button>
+							{%elif  in_cart%}
+							<a href="#"><button class="btn btn-success"><i class="fa fa-shopping-cart"></i> Added To Cart</button></a>
+							<a href="{%url 'cart'%}"><button class="btn  btn-info"><i class="fa fa-eye"></i> View Cart</button></a>
 							{%else%}
-							<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+							<a href="{%url 'add_cart' single_product.id %}"><button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Add To Cart</button></a>
 							{%endif%}
 						</div>
 

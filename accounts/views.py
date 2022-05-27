@@ -56,6 +56,7 @@ def otpverify(request):
         otp =request.POST['otp']
         user =Account.objects.get(id=id)
         if user.otp == otp:
+            
             login(request,user)
             return redirect(home)
         else:
