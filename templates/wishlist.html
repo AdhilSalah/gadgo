@@ -1,0 +1,75 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block content%}
+
+
+<section class="section-content padding-y bg">
+<div class="container">
+
+<!-- ============================ COMPONENT 1 ================================= -->
+
+<div class="row">
+	<aside class="col-lg-9">
+        <h1>wishlist</h1>
+<div class="card">
+<table class="table table-borderless table-shopping-cart">
+<thead class="text-muted">
+<tr class="small text-uppercase">
+  <th scope="col">Product</th>
+  <th scope="col" width="120">Price</th>
+  <th scope="col" class="text-right" width="200"> </th>
+</tr>
+</thead>
+<tbody>
+
+    {% for wishlist_item in wishlist_items   %}
+
+    
+<tr>
+	<td>
+		<figure class="itemside align-items-center">
+			<div class="aside"><img src="{{wishlist_item.product.image.url}}" class="img-sm" style="height: 100px; width: 100px; object-fit: contain;"></div>
+			<figcaption class="info">
+				<a href="{{wishlist_item.product.get_url}}" class="title text-dark">{{wishlist_item.product.product_name}}</a>
+				
+			</figcaption>
+		</figure>
+	</td>
+	<td> 
+		<!-- col.// -->
+				
+	</td>
+	<td> 
+		<div class="price-wrap"> 
+			<var class="price">${{wishlist_item.product.price}}</var> 
+			
+		</div> <!-- price-wrap .// -->
+	</td>
+	<td class="text-right"> 
+	<a href="{%url 'remove_from_wishlist' wishlist_item.product.id%}" class="btn btn-danger"> Remove</a>
+	</td>
+    <td class="text-right"> 
+        <a href="{%url 'add_cart' wishlist_item.product.id%}" class="btn btn-warning"> Add To cart</a>
+        </td>
+</tr>
+
+{%endfor%}
+
+
+</tbody>
+</table>
+</div> <!-- card.// -->
+
+	</aside> <!-- col.// -->
+
+
+
+</div> <!-- row.// -->
+<!-- ============================ COMPONENT 1 END .// ================================= -->
+
+</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+</body>
+</html>
+{%endblock%}

@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'accounts',
     'store',
     'carts',
+    'wishlists',
+    'proadmin',
     
 ]
 

@@ -98,11 +98,17 @@
 							<a href="{%url 'add_cart' single_product.id %}"><button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Add To Cart</button></a>
 							{%endif%}
 						</div>
-
+                           {%if in_wishlist%}
 						<ul class="product-btns">
-							<li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
-							<li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>
+							<li><a href="#"><i class="fa fa-heart"></i> Added to wishlist</a></li>
+						
 						</ul>
+						{%else%}
+						<ul class="product-btns">
+							<li><a href="{%url 'add_wishlist' single_product.id%}"><i class="fa fa-heart-o"></i> Add to wishlist</a></li>
+						
+						</ul>
+						{%endif%}
 
 						<ul class="product-links">
 							<li>Category:</li>

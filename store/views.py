@@ -1,8 +1,11 @@
 
+from itertools import product
 from django.shortcuts import get_object_or_404, render
 
 from carts.models import CartItem
 from carts.views import _cart_id
+from wishlists.models import WishlistItem
+from wishlists.views import _wishlist_id, wishlist
 
 from .models import Product
 from category.models import Category
@@ -44,6 +47,8 @@ def product_details(request,category_slug,product_slug):
         single_product =Product.objects.get(category__slug=category_slug,slug=product_slug)
         in_cart =CartItem.objects.filter(cart__cart_id = _cart_id(request),product=single_product).exists()
 
+        in_wishlist = WishlistItem.objects.filter(wishlist__wishlist_id = _wishlist_id(request),product=single_product).exists()
+
     except Exception as e:
         raise e 
 
@@ -51,6 +56,7 @@ def product_details(request,category_slug,product_slug):
     context ={
         'single_product':single_product,
         'in_cart':in_cart,
+        'in_wishlist':in_wishlist,
     }       
 
 

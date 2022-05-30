@@ -61,7 +61,7 @@
                     <div class="header-ctn">
                         <!-- Wishlist -->
                         <div>
-                            <a href="#">
+                            <a href="{%url 'wishlist'%}">
                                 <i class="fa fa-heart-o"></i>
                                 <span>Your Wishlist</span>
                                 <div class="qty">2</div>
@@ -70,12 +70,25 @@
                         <!-- /Wishlist -->
 
                         <!-- Cart -->
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" href="{%url 'cart'%}"data-toggle="dropdown" aria-expanded="true">
+
+                        <div>
+                            <a href="{%url 'cart'%}">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>Your Cart</span>
+                                <div class="qty">2</div>
+                            </a>
+                        </div>
+
+
+
+
+                        <!-- <div>
+                            <a  href="{%url 'cart'%}"data-toggle="dropdown" aria-expanded="true">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>Your Cart</span>
                                 <div class="qty">3</div>
-                            </a>
+                            </a> -->
+                            
                             <!-- <div class="cart-dropdown">
                                 <div class="cart-list">
                                     <div class="product-widget">
@@ -109,7 +122,7 @@
                                     <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div> -->
-                        </div>
+                        <!-- </div> -->
                         <!-- /Cart -->
 
                         <!-- Menu Toogle -->
