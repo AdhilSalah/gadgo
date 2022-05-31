@@ -33,6 +33,7 @@
                                 <th scope="col">Product</th>
                                 <th scope="col" width="120">Quantity</th>
                                 <th scope="col" width="120">Price</th>
+                                <t
                                 <th scope="col" class="text-right" width="200"> </th>
                             </tr>
                         </thead>
@@ -53,16 +54,19 @@
                                 <td>
                                     <!-- col.// -->
                                     <div >
-                                        <div class="d-flex ">
-                                            <div >
-                                               <a href="{%url 'add_cart' cart_item.product.id%}"> <button class="btn btn-light" type="button" id="button-plus"> <i
-                                                        class="fa fa-plus"></i> </button></a>
-                                            </div>
-                                            <input type="text" class="form-control" value="{{cart_item.quantity}}">
+                                        <div class="d-flex" style="display: flex;">
                                             <div >
                                                 <a href="{%url 'remove_cart' cart_item.product.id%}"><button class="btn btn-light" type="button" id="button-minus"> <i
                                                         class="fa fa-minus"></i> </button></a>
                                             </div>
+                                            <input type="text" class="form-control"  style="padding: 1rem" value="{{cart_item.quantity}}">
+                                           
+
+
+                                            <div >
+                                                <a href="{%url 'add_cart' cart_item.product.id%}"> <button class="btn btn-light" type="button" id="button-plus"> <i
+                                                         class="fa fa-plus"></i> </button></a>
+                                             </div>
                                         </div> <!-- input-group.// -->
                                     </div> <!-- col.// -->
                                 </td>

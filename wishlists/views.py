@@ -45,12 +45,22 @@ def add_wishlist(request,product_id):
 
     except WishlistItem.DoesNotExist:
 
-        wishlist_item = WishlistItem.objects.create(
+        if request.user.is_authenticated:
+            wishlist_item = WishlistItem.objects.create(
             product=product,
-            wishlist = wishlist,
-        ) 
+            user = request.user,
+            ) 
 
-        wishlist_item.save
+            wishlist_item.save
+        else:    
+
+
+            wishlist_item = WishlistItem.objects.create(
+                product=product,
+                wishlist = wishlist,
+            ) 
+
+            wishlist_item.save
 
     return redirect('wishlist')    
 
@@ -62,10 +72,11 @@ def wishlist(request,wishlist_items=None):
 
 
     try:
-        cart = Cart.objects.get(cart_id = _cart_id(request))
-        cart_items = CartItem.objects.filter(cart=cart,is_active=True)
-        wishlist = Wishlist.objects.get(wishlist_id = _wishlist_id(request))
-        wishlist_items =WishlistItem.objects.filter(wishlist=wishlist,is_active = True)
+        if request.user.is_authenticated:
+            wishlist_items=WishlistItem.objects.filter(user=request.user,is_active=True)
+        else:    
+            wishlist = Wishlist.objects.get(wishlist_id = _wishlist_id(request))
+            wishlist_items =WishlistItem.objects.filter(wishlist=wishlist,is_active = True)
 
 
     except Wishlist.DoesNotExist:
@@ -73,7 +84,7 @@ def wishlist(request,wishlist_items=None):
 
     context ={
         'wishlist_items':wishlist_items,
-        'cart_items':cart_items
+        
     }
     return render(request,'wishlist.html',context)
 
@@ -84,7 +95,12 @@ def remove_from_wishlist(request,product_id):
 
     wishlist = Wishlist.objects.get(wishlist_id = _wishlist_id(request))
     product = get_object_or_404(Product,id=product_id)
-    Wishlist_item = WishlistItem.objects.get(product=product,wishlist=wishlist) 
+
+    if request.user.is_authenticated:
+        Wishlist_item= WishlistItem.objects.get(product=product,user=request.user) 
+    else:
+
+        Wishlist_item = WishlistItem.objects.get(product=product,wishlist=wishlist) 
 
     Wishlist_item.delete()
 

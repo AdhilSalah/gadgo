@@ -95,13 +95,14 @@ def cart(request,total=0,quantity=0,cart_items=None):
 
 
 def remove_cart(request,product_id):
-    cart =Cart.objects.get(cart_id=_cart_id(request))
+    
     product = get_object_or_404(Product,id=product_id)
 
     if request.user.is_authenticated:
         cart_item= CartItem.objects.get(product=product,user=request.user)
 
-    else:    
+    else:   
+        cart =Cart.objects.get(cart_id=_cart_id(request)) 
         cart_item= CartItem.objects.get(product=product,cart=cart)
 
     if cart_item.quantity >1:

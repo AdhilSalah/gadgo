@@ -3,59 +3,106 @@ from django.shortcuts import redirect, render
 
 # Create your views here.
 from django.shortcuts import render
+from urllib3 import Retry
 from category.models import Category
 from django.utils.text import slugify
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from accounts.models import Account
 
 
 from store.models import Product
 
 # Create your views here.
 def super_home(request):
+    if request.user.is_authenticated and request.user.is_superadmin:
 
-    return render(request,'adminpro/index.html')
+
+        return render(request,'adminpro/index.html')
+    return redirect('super_home_login')    
 
 
 
 def products_view(request):
+    if request.user.is_authenticated:
 
 
-    products = Product.objects.all()
+        products = Product.objects.all()
 
-    context = {
-        'products':products
-    }
+        context = {
+            'products':products
+        }
 
 
-    return render(request,'adminpro/view_product.html',context)    
+        return render(request,'adminpro/view_product.html',context)
+
+    return redirect('super_home_login')        
 
 
 
 
 def add_product(request):
-
-
-    if request.method == 'POST':
-        product_name = request.POST['product_name']
-
-        slug = slugify(product_name)
-        stock = request.POST['stock']
-        price = request.POST['price']
-        category = Category.objects.get(id=request.POST['category'])
-        description = request.POST['description']
-        image = request.FILES.get('image')
-        if product_name=="" or stock=="" or category=="" or image=="":
-            messages.error(request,'Please fill all columns !')
-        elif Product.objects.filter(product_name=product_name).exists():
-            messages.error(request,'Item allready exists !')
-        else:    
-
-
-            product = Product.objects.create(product_name = product_name,slug=slug,stock=stock,price=price,category=category,description=description,image=image,is_available=True)
-
-            product.save()
+    if request.user.is_authenticated and request.user.is_superadmin:
 
 
 
+        if request.method == 'POST':
+            product_name = request.POST['product_name']
 
-    return render(request,'adminpro/add_product.html')    
+            slug = slugify(product_name)
+            stock = request.POST['stock']
+            price = request.POST['price']
+            category = Category.objects.get(id=request.POST['category'])
+            description = request.POST['description']
+            image = request.FILES.get('image')
+            if product_name=="" or stock=="" or category=="" or image=="":
+                messages.error(request,'Please fill all columns !')
+            elif Product.objects.filter(product_name=product_name).exists():
+                messages.error(request,'Item allready exists !')
+            else:    
+
+
+                product = Product.objects.create(product_name = product_name,slug=slug,stock=stock,price=price,category=category,description=description,image=image,is_available=True)
+
+                product.save()
+
+
+
+
+        return render(request,'adminpro/add_product.html')
+    return redirect('super_home_login')    
+
+
+
+def super_home_login(request):
+    if request.user.is_authenticated and request.user.is_superadmin:
+        return redirect('super_home')
+
+    if request.method=='POST':
+
+        email = request.POST['email']
+        password = request.POST['password']
+
+        user = authenticate(email=email,password=password)
+        print(user)
+        if user is not None : 
+
+            login(request,user)   
+
+            return redirect('super_home')
+        else:
+            messages.error(request,'incorrect username or password')
+
+
+    return render(request,'adminpro/super_signin.html')
+
+
+
+
+def super_home_logout(request):
+
+    if request.user.is_authenticated and request.user.is_superadmin:
+
+        logout(request)
+
+        return redirect('super_home_login')                

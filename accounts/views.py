@@ -7,8 +7,11 @@ from carts.models import Cart, CartItem
 from carts.views import _cart_id
 from category.models import Category
 from store.models import Product
+from wishlists.models import Wishlist, WishlistItem
+from wishlists.views import _wishlist_id
 from .models import *
 from django.contrib import messages
+from accounts.models import Account
 
 
 
@@ -24,7 +27,7 @@ def signin(request):
         password = request.POST['password']
         user = authenticate(email = email,password=password)
         
-        if user is not None:
+        if user is not None and not user.is_superadmin:
 
             try:    
                 cart = Cart.objects.get(cart_id=_cart_id(request))
@@ -37,7 +40,20 @@ def signin(request):
                         item.user=user
                         item.save()
             except:
-                pass                 
+                pass 
+
+            try:    
+                wishlist = Wishlist.objects.get(wishlist_id=_wishlist_id(request))
+                is_wishlist_item = WishlistItem.objects.filter(wishlist=wishlist).exists()
+
+                if is_wishlist_item:
+                    wishlist_item = WishlistItem.objects.filter(wishlist=wishlist)
+                    for item in wishlist_item:
+
+                        item.user=user
+                        item.save()
+            except:
+                pass                   
 
             login(request,user)
             return redirect(home)
@@ -64,6 +80,7 @@ def signout(request):
 
 
 def home(request):
+    
 
     products=Product.objects.all().filter(is_available=True)
     category =Category.objects.all()

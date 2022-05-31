@@ -12,8 +12,13 @@ def counter(request):
 
     try:
 
-        wishlist = Wishlist.objects.filter(wishlist_id=_wishlist_id(request))
-        wishlist_items = WishlistItem.objects.all().filter(wishlist=wishlist[:1])
+        if request.user.is_authenticated:
+            wishlist_items = WishlistItem.objects.all().filter(user=request.user)
+        else:    
+
+
+            wishlist = Wishlist.objects.filter(wishlist_id=_wishlist_id(request))
+            wishlist_items = WishlistItem.objects.all().filter(wishlist=wishlist[:1])
 
         for wishlist_item in wishlist_items:
 
