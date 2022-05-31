@@ -3,9 +3,10 @@ import random
 from unicodedata import category
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
+from carts.models import Cart, CartItem
+from carts.views import _cart_id
 from category.models import Category
 from store.models import Product
-from .mixins import *
 from .models import *
 from django.contrib import messages
 
@@ -24,13 +25,24 @@ def signin(request):
         user = authenticate(email = email,password=password)
         
         if user is not None:
-            user =Account.objects.get(email=email)
 
-            user.otp = random.randint(1000,9999)
-            user.save()
-            request.session['id']= user.id
-            messsage_handler=MessageHandler(user.phone_number,user.otp).send_otp_on_phone()
-            return redirect('otpverify')
+            try:    
+                cart = Cart.objects.get(cart_id=_cart_id(request))
+                is_cart_item = CartItem.objects.filter(cart=cart).exists()
+
+                if is_cart_item:
+                    cart_item = CartItem.objects.filter(cart=cart)
+                    for item in cart_item:
+
+                        item.user=user
+                        item.save()
+            except:
+                pass                 
+
+            login(request,user)
+            return redirect(home)
+            
+            
             
         else:
             messages.error(request, "Incrorrect email or password")
@@ -49,24 +61,6 @@ def signout(request):
 
 
 
-def otpverify(request):
-
-    if request.method=='POST':
-        id = request.session['id']
-        otp =request.POST['otp']
-        user =Account.objects.get(id=id)
-        if user.otp == otp:
-            
-            login(request,user)
-            return redirect(home)
-        else:
-            return redirect(signin)    
-
-
-
-
-
-    return render(request,'otp.html')   
 
 
 def home(request):

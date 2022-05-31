@@ -10,7 +10,7 @@
             </ul>
             <ul class="header-links pull-right">
                 <li><a href="#"><i class="fa fa-rupee"></i> INR</a></li>
-                {%if not request.user.is_authenticated or request.user.is_admin%}
+                {%if not request.user.is_authenticated%}
                 <li><a href="{%url 'signin'%}"><i class="fa fa-user-o">signin</i> </a></li>
                 {%else%}
 
@@ -75,7 +75,7 @@
                             <a href="{%url 'cart'%}">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>Your Cart</span>
-                                <div class="qty">2</div>
+                                <div class="qty">{{cart_count}}</div>
                             </a>
                         </div>
 
