@@ -1,0 +1,281 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+	<!-- SECTION -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+
+                <div class="col-md-7">
+
+                    
+
+
+
+
+
+
+
+
+
+                    <div class="order-products">
+                        <!-- some  -->
+                        
+
+<section>
+                        <div class="row">
+                            <div class="col-md-7 col-lg-7 col-xl-6 mb-4 mb-md-0">
+                              <h5 class="mb-0 text-success"></h5>
+                              <h5 class="mb-3">Order Details</h5>
+                              <div>
+                                <div class="d-flex justify-content-between">
+                                  <div class="d-flex flex-row mt-1">
+                                    <h6>{{order.first_name}} {{order.last_name}}</h6>
+                                    <h6 class="fw-bold text-success ms-1"></h6>
+                                  </div>
+                                  
+                                </div>
+                                <p>
+                                  {{order.email}}
+                                </p>
+                                <p>
+                                     {{order.address_line_1}}
+                                  </p>
+                                  <p>
+                                    {{order.city}}
+                                  </p>
+                                  <p>
+                                    {{order.country}}
+                                  </p>
+                                  <p>
+                                    {{order.zipcode}}
+                                  </p>
+                                  <p>
+                                    {{order.phone_number}}
+                                  </p>
+                                  <p>
+                                    {{order.order_note}}
+                                  </p>
+                                  <p>
+                                    {{order.order_number}}
+                                  </p>
+                                
+                                <hr />
+                        
+
+
+                              </div>
+                        </div>
+                    </section>
+                        
+                        
+                        
+                        
+                        <!-- someend  -->
+                    </div>
+                  
+
+                
+
+                    <!-- Order notes -->
+                    
+                    <!-- /Order notes -->
+                </div>
+
+                <!-- Order Details -->
+                <div class="col-md-5 order-details">
+                    <div class="section-title text-center">
+                        <h3 class="title">Your Order</h3>
+                    </div>
+                    <div class="order-summary">
+                        <div class="order-col">
+                            <div><strong>PRODUCT</strong></div>
+                            <div><strong>TOTAL</strong></div>
+                        </div>
+                        <div class="order-products">
+                            {%for cart_item in cart_items%}
+                            <div class="order-col">
+                                <div>{{cart_item.quantity}}x {{cart_item.product.product_name}}</div>
+                                <div>{{cart_item.sub_total}}</div>
+                            </div>
+                            {%endfor%}
+                            
+                        </div>
+                        <div class="order-col">
+                            <div>TAX</div>
+                            <div><strong>{{tax}}</strong></div>
+                        </div>
+                        <div class="order-col">
+                            <div><strong>TOTAL</strong></div>
+                            <div><strong class="order-total">${{total}}</strong></div>
+                        </div>
+                    </div>
+                    <div class="payment-method">
+                        <div class="input-radio">
+                            <input type="radio" name="payment" id="payment-1">
+                            <label for="payment-1">
+                                <span></span>
+                                Direct Bank Transfer
+                            </label>
+                            <div class="caption">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                        </div>
+                        <div class="input-radio">
+                            <input type="radio" name="payment" id="payment-2">
+                            <label for="payment-2">
+                                <span></span>
+                                Cheque Payment
+                            </label>
+                            <div class="caption">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                        </div>
+                        <div class="input-radio">
+                            <input type="radio" name="payment" id="payment-3">
+                            <label for="payment-3">
+                                <span></span>
+                                Paypal System
+                            </label>
+                            <div class="caption">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-checkbox">
+                        <input type="checkbox" id="terms">
+                        <label for="terms">
+                            <span></span>
+                            I've read and accept the <a href="#">terms & conditions</a>
+                        </label>
+                    </div>
+                    
+                        {% if response %}
+<form action="{%url 'payment_success'%}" method="POST">
+    
+    <script
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        data-key="rzp_test_OFFUs9LlryRh7O"
+        data-amount={{response.amount}}
+        data-currency={{response.currency}}
+        data-order_id={{response.id}}
+        data-buttontext="Pay Now"
+        data-buttoncolor="#F37254"
+        
+        data-name="ILoveDjango3000"
+        data-description=""
+        data-image=""
+        data-theme.color="#F37254"
+    ></script>
+    <input type="hidden" custom="Hidden Element" name="hidden">
+    </form>
+{% endif %}
+<style>
+    .razorpay-payment-button{
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: #8d8284;
+        border: none;
+        border-radius: 40px;
+        color: #FFF;
+        text-transform: uppercase;
+        font-weight: 700;
+        text-align: center;
+        -webkit-transition: 0.2s all;
+        transition: 0.2s all;
+    }
+    
+</style>
+                    
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+                <!-- /Order Details -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->
+
+    <!-- NEWSLETTER -->
+    <div id="newsletter" class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="newsletter">
+                        <p>Sign Up for the <strong>NEWSLETTER</strong></p>
+                        <form>
+                            <input class="input" type="email" placeholder="Enter Your Email">
+                            <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
+                        </form>
+                        <ul class="newsletter-follow">
+                            <li>
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /NEWSLETTER -->
+
+
+
+    <!-- jQuery Plugins -->
+    <script src="{%static 'js/jquery.min.js'%}"></script>
+    <script src="{%static 'js/bootstrap.min.js'%}"></script>
+    <script src="{%static 'js/slick.min.js'%}"></script>
+    <script src="{%static 'js/nouislider.min.js'%}"></script>
+    <script src="{%static 'js/jquery.zoom.min.js'%}"></script>
+    <script src="{%static 'js/main.js'%}"></script>
+
+</body>
+</html>
+
+{% endblock %}
