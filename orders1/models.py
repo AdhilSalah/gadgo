@@ -24,10 +24,10 @@ class Order(models.Model):
         ('Completed','Completed'),
         ('Cancelled','Cancelled'),
     )
-      
+
     user = models.ForeignKey(Account,on_delete=models.SET_NULL,null = True)
-  
-    payment = models.ForeignKey(Payment,on_delete=models.SET_NULL,blank=True,null = True)
+
+    payment = models.OneToOneField(Payment,on_delete=models.SET_NULL,blank=True,null = True)
 
     order_number = models.CharField(max_length=20)
 
@@ -87,13 +87,18 @@ class OrderProduct(models.Model):
 
     quantity = models.IntegerField()
 
-    product_price = models.FloatField()
+    product_price = models.FloatField(null=True)
 
     ordered = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
 
     updated_at = models.DateTimeField(auto_now=True) 
+
+
+    def sub_total(self):
+
+        return self.product.price * self.quantity
 
     
 

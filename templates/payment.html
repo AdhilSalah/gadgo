@@ -34,34 +34,34 @@
                               <div>
                                 <div class="d-flex justify-content-between">
                                   <div class="d-flex flex-row mt-1">
-                                    <h6>{{order.first_name}} {{order.last_name}}</h6>
+                                    <h6> Name :{{order.first_name}} {{order.last_name}}</h6>
                                     <h6 class="fw-bold text-success ms-1"></h6>
                                   </div>
                                   
                                 </div>
                                 <p>
-                                  {{order.email}}
+                                 Email: {{order.email}}
                                 </p>
                                 <p>
-                                     {{order.address_line_1}}
+                                    Address: {{order.address_line_1}}
                                   </p>
                                   <p>
-                                    {{order.city}}
+                                    City:{{order.city}}
                                   </p>
                                   <p>
-                                    {{order.country}}
+                                    Country:{{order.country}}
                                   </p>
                                   <p>
-                                    {{order.zipcode}}
+                                   Zip-Code: {{order.zipcode}}
                                   </p>
                                   <p>
-                                    {{order.phone_number}}
+                                   Phone: {{order.phone_number}}
                                   </p>
                                   <p>
-                                    {{order.order_note}}
+                                    Notes:{{order.order_note}}
                                   </p>
                                   <p>
-                                    {{order.order_number}}
+                                   Order ID: {{order.order_number}}
                                   </p>
                                 
                                 <hr />
@@ -155,7 +155,7 @@
                     </div>
                     
                         {% if response %}
-<form action="{%url 'payment_success'%}" method="POST">
+<form action="{%url 'payment_success' order.order_number%}" method="POST">
     
     <script
         src="https://checkout.razorpay.com/v1/checkout.js"
@@ -166,9 +166,12 @@
         data-buttontext="Pay Now"
         data-buttoncolor="#F37254"
         
-        data-name="ILoveDjango3000"
-        data-description=""
+        data-name="Electro"
+        data-description={{order.first_name}}
         data-image=""
+        data-prefill.name={{request.user.first_name}}
+        data-prefill.email={{request.user.email}}
+        data-prefill.contact="+918138970663"
         data-theme.color="#F37254"
     ></script>
     <input type="hidden" custom="Hidden Element" name="hidden">
@@ -265,7 +268,11 @@
     </div>
     <!-- /NEWSLETTER -->
 
-
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
 
     <!-- jQuery Plugins -->
     <script src="{%static 'js/jquery.min.js'%}"></script>

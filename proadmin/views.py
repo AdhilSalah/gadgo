@@ -1,3 +1,4 @@
+from multiprocessing import context
 import unicodedata
 from django.shortcuts import redirect, render
 
@@ -9,6 +10,7 @@ from django.utils.text import slugify
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from accounts.models import Account
+from orders1.models import Order, OrderProduct, Payment
 
 
 from store.models import Product
@@ -105,4 +107,41 @@ def super_home_logout(request):
 
         logout(request)
 
-        return redirect('super_home_login')                
+        return redirect('super_home_login')   
+
+
+
+def super_home_orders(request):
+
+    orders = Order.objects.filter(is_ordered=True)
+    context={
+        'orders':orders,
+    }
+
+
+    return render(request,'adminpro/admin_orders.html',context) 
+
+
+
+def super_home_order_details(request,order_id,total=0):
+
+    order = Order.objects.get(id=order_id)
+    payment = Payment.objects.get(id=order.payment.id)
+    order_products = OrderProduct.objects.filter(payment_id=payment.id)
+    
+    for order_product in order_products:
+            total += (order_product.product_price * order_product.quantity)
+        
+
+    context={
+        'order':order,
+        'payment':payment,
+        'order_products':order_products,
+        'total':total,
+    }
+
+    
+
+
+
+    return render(request,'adminpro/admin_order_details.html',context)                        
