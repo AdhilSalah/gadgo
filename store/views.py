@@ -16,6 +16,8 @@ from category.models import Category
 def store(request,category_slug=None):
     categories = None
     store_products = None
+     
+    
 
     if category_slug!=None:
         categories = get_object_or_404(Category,slug = category_slug)
@@ -27,12 +29,13 @@ def store(request,category_slug=None):
         
         store_products = Product.objects.all().filter(is_available=True)
         store_products_count = store_products.count()
-        
-
+       
+    
     context={
 
         'store_products':store_products,
         'store_producst_count':store_products_count,
+        
     }
 
     return render(request,'store.html',context)

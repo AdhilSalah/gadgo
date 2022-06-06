@@ -14,7 +14,7 @@
                 <li><a href="{%url 'signin'%}"><i class="fa fa-user-o">signin</i> </a></li>
                 {%else%}
 
-                <li><a href="{%url 'signout'%}"><i class="fa fa-user-o">{{user.first_name}}</i> </a></li>
+                <li><a href="{%url 'user_details'%}"><i class="fa fa-user-o">{{user.first_name}}</i> </a></li>
                 {%endif%}
             </ul>
         </div>

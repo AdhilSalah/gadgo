@@ -1,7 +1,10 @@
+
 import datetime
+
+from pyexpat.errors import messages
 import re
 from time import strftime
-from urllib import response
+
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -9,6 +12,9 @@ from carts.models import CartItem
 from orders1.models import Order, OrderProduct, Payment
 import razorpay
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
+
+from store.models import Product
 
 # Create your views here.
 
@@ -20,6 +26,16 @@ def checkout(request, total=0, quantity=0):
         for cart_item in cart_items:
             total += (cart_item.product.price * cart_item.quantity)
             quantity += cart_item.quantity
+            product = Product.objects.get(id = cart_item.product.id)
+            
+
+            if product.stock < cart_item.quantity:
+
+                messages.error(request,f'{product.product_name} Not Enough Stock')
+                
+                return redirect('cart')
+
+            
 
         context = {
             'total': total,
@@ -157,9 +173,13 @@ def payment_success(request, order_number, total=0, quantity=0):
 
         #   finding order total and tax
         order_products = OrderProduct.objects.filter(order_id=order.id)
+        
         for order_product in order_products:
             total += (order_product.product_price * order_product.quantity)
             quantity += order_product.quantity
+            product = Product.objects.get(id=order_product.product.id)
+            product.stock -= order_product.quantity
+            product.save()
 
         tax = (2*total)/100
 

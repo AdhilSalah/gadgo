@@ -11,6 +11,12 @@
 <section class="section-content padding-y bg">
     <div class="container">
 
+        {% for message in messages %}
+<div class="alert alert-danger" role="alert">
+    {{message}}
+</div>
+{%endfor%}
+
         <!-- ============================ COMPONENT 1 ================================= -->
 
         {%if not cart_items %}
@@ -33,8 +39,8 @@
                                 <th scope="col">Product</th>
                                 <th scope="col" width="120">Quantity</th>
                                 <th scope="col" width="120">Price</th>
-                                <t
-                                <th scope="col" class="text-right" width="200"> </th>
+                                
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -62,11 +68,16 @@
                                             <input type="text" class="form-control"  style="padding: 1rem" value="{{cart_item.quantity}}">
                                            
 
+                                            
+                                      
+
 
                                             <div >
+                                                
                                                 <a href="{%url 'add_cart' cart_item.product.id%}"> <button class="btn btn-light" type="button" id="button-plus"> <i
                                                          class="fa fa-plus"></i> </button></a>
                                              </div>
+                                            
                                         </div> <!-- input-group.// -->
                                     </div> <!-- col.// -->
                                 </td>
@@ -102,11 +113,11 @@
                         </dl>
                         <dl class="dlist-align">
                             <dt>Tax:</dt>
-                            <dd class="text-right"> $10.00</dd>
+                            <dd class="text-right"> {{tax}}</dd>
                         </dl>
                         <dl class="dlist-align">
                             <dt>Total:</dt>
-                            <dd class="text-right text-dark b"><strong>$59.97</strong></dd>
+                            <dd class="text-right text-dark b"><strong>{{grand_total}}</strong></dd>
                         </dl>
                         <hr>
                         <p class="text-center mb-3">

@@ -44,6 +44,8 @@ class MyAccountManager(BaseUserManager):
         )
 
         user.set_password(password)
+        
+
         user.save(using=self._db)
         return user
 
@@ -57,8 +59,9 @@ class MyAccountManager(BaseUserManager):
             username=username,
             first_name=first_name,
             last_name=last_name,
-            password=password,
             phone_number = phone_number,
+            password=password,
+
             
         )
         user.is_admin = True
@@ -74,7 +77,7 @@ class Account(AbstractBaseUser):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
 
-    username = models.CharField(unique=True, max_length=50)
+    username = models.CharField(unique=False, max_length=50)
     email = models.EmailField(unique=True, max_length=50)
     phone_number = models.CharField(max_length=13)
 
