@@ -1,4 +1,6 @@
 
+from distutils.command.upload import upload
+from email.mime import image
 from django.urls import reverse
 from category.models import Category
 from django.db import models
@@ -30,3 +32,13 @@ class Product(models.Model):
     def __str__(self):
 
         return self.product_name
+
+
+class ProductImage(models.Model):
+
+    product = models.ForeignKey(Product,on_delete=models.CASCADE,null=True)
+    image = models.ImageField(upload_to = 'photos/products/extras')
+
+    def __str__(self):
+
+        return self.product.product_name        

@@ -13,12 +13,13 @@ from orders1.models import Order, OrderProduct, Payment
 import razorpay
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from store.models import Product
 
 # Create your views here.
 
-
+@login_required(login_url='signin')
 def checkout(request, total=0, quantity=0):
     if request.user.is_authenticated:
 

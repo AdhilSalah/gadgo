@@ -10,6 +10,10 @@ urlpatterns =[
     path('super_home_login/',views.super_home_login,name='super_home_login'),
     path('super_home_orders/',views.super_home_orders,name='super_home_orders'),
     path('super_home_order_details/<int:order_id>/',views.super_home_order_details,name='super_home_order_details'),
-    
+    path('edit_product/<int:product_id>/',views.edit_product,name='edit_product'),
+    path('delete_product/<int:product_id>/',views.delete_product,name='delete_product'),
+    path('admin_user_details',views.admin_user_details,name='admin_user_details'),
+    path('admin_user_activate/<int:user_id>/',views.admin_user_activate,name='admin_user_activate'),
+    path('admin_user_disable/<int:user_id>/',views.admin_user_disable,name='admin_user_disable'),
 
 ]

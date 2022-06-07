@@ -166,21 +166,3 @@
     <!-- /container -->
 </nav>
 <!-- /NAVIGATION -->
-<script>
-
-
-    $(document).ready(() => {
-        const url = window.location;
-        $('ul.navbar-nav li a').each(function () {
-            if (this.href == url) {
-                $('ul.navbar-nav li').each(function () {
-                    if ($(this).hasClass('active')) {
-                        $(this).removeClass('active');
-                    }
-                });
-                $(this).parent().addClass('active');
-            }
-        });
-    });
-
-</script>

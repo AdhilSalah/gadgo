@@ -22,6 +22,7 @@
                                             
                                                             <th scope="col">Price</th>
                                             <th scope="col">Stock</th>
+                                            <th scope="col">Action</th>
                                             
                                         </tr>
                                     </thead>
@@ -35,6 +36,7 @@
                                             <td>{{product.category}}</td>
                                             <td>{{product.price}}</td>
                                             <td>{{product.stock}}</td>
+                                            <td><a class="btn btn-sm btn-primary" href="{%url 'edit_product' product.id %}">Edit</a></td>
                                             
                                         </tr>
                                         {%endfor%}

@@ -9,13 +9,25 @@
 			<!-- row -->
 			<div class="row">
 				<!-- Product main img -->
+				<!-- Product main img -->
 				<div class="col-md-5 col-md-push-2">
 					<div id="product-main-img">
 						<div class="product-preview">
 							<img src="{{single_product.image.url}}" alt="">
 						</div>
+                          {%for side_image in side_images%}
+						<div class="product-preview">
+							<img src="{{side_image.image.url}}" alt="">
+						</div>
+						{%endfor%}
 
-						
+						<!-- <div class="product-preview">
+							<img src="./img/product06.png" alt="">
+						</div>
+
+						<div class="product-preview">
+							<img src="./img/product08.png" alt="">
+						</div> -->
 					</div>
 				</div>
 				<!-- /Product main img -->
@@ -27,17 +39,19 @@
 							<img src="{{single_product.image.url}}" alt="">
 						</div>
 
+						{%for side_image in side_images%}
+						<div class="product-preview">
+							<img src="{{side_image.image.url}}" alt="">
+						</div>
+						{%endfor%}
+<!-- 
 						<div class="product-preview">
 							<img src="{{single_product.image.url}}" alt="">
 						</div>
 
 						<div class="product-preview">
 							<img src="{{single_product.image.url}}" alt="">
-						</div>
-
-						<div class="product-preview">
-							<img src="{{single_product.image.url}}" alt="">
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<!-- /Product thumb imgs -->
@@ -562,12 +576,12 @@
 	<!-- /FOOTER -->
 
 	<!-- jQuery Plugins -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/slick.min.js"></script>
-	<script src="js/nouislider.min.js"></script>
-	<script src="js/jquery.zoom.min.js"></script>
-	<script src="js/main.js"></script>
+	<script src="{%static 'js/jquery.min.js'%}"></script>
+	<script src="{%static 'js/bootstrap.min.js'%}"></script>
+	<script src="{%static 'js/slick.min.js'%}"></script>
+	<script src="{%static 'js/nouislider.min.js'%}"></script>
+	<script src="{%static 'js/jquery.zoom.min.js'%}"></script>
+	<script src="{%static 'js/main.js'%}"></script>
 
 </body>
 

@@ -184,9 +184,10 @@
 					<!-- product -->
 					{%for products in store_products%}
 					<div class="col-md-4 col-xs-6">
-						<div class="product">
+						<br>
+						<div class="product" style="height: 500px;">
 							<div class="product-img">
-								<img src="{{products.image.url}}" alt="">
+								<img src="{{products.image.url}}" alt="" style="height: 250px;width:250px; object-fit: contain;">
 								<div class="product-label">
 									<span class="sale">-30%</span>
 									<span class="new">NEW</span>
@@ -206,20 +207,20 @@
 									<i class="fa fa-star"></i>
 								</div>
 								<div class="product-btns">
-									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span
+									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i></a><span
 											class="tooltipp">add to wishlist</span></button>
-									<button class="add-to-compare"><i class="fa fa-exchange"></i><span
+									<button class="add-to-compare"><a href="{%url 'add_cart' products.id %}"><i class="fa fa-shopping-cart"></i></a><span
 											class="tooltipp">add to compare</span></button>
 									<button class="quick-view"><a href="{{ products.get_url }}"><i
 												class="fa fa-eye"></i></a><span class="tooltipp">quick
 											view</span></button>
 								</div>
 							</div>
-							<div class="add-to-cart">
+							<!-- <div class="add-to-cart">
 								<a href="{%url 'add_cart' products.id %}"><button class="add-to-cart-btn"><i
 											class="fa fa-shopping-cart"></i> add to
 										cart</button></a>
-							</div>
+							</div> -->
 						</div>
 					</div>
 					<!-- /product -->

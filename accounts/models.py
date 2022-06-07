@@ -49,14 +49,14 @@ class MyAccountManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self,  email,first_name,last_name, username, phone_number,password):
+    def create_superuser(self,  email,first_name,last_name, phone_number,password, username=None):
         """
         Creates and saves a superuser with the given email, date of
         birth and password.
         """
         user = self.create_user(
             email=self.normalize_email(email),
-            username=username,
+            
             first_name=first_name,
             last_name=last_name,
             phone_number = phone_number,
@@ -91,7 +91,7 @@ class Account(AbstractBaseUser):
     uid = models.UUIDField(default=uuid.uuid4)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username','first_name','last_name']
+    REQUIRED_FIELDS = ['first_name','last_name','phone_number']
 
     objects = MyAccountManager()
 

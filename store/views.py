@@ -7,7 +7,7 @@ from carts.views import _cart_id
 from wishlists.models import WishlistItem
 from wishlists.views import _wishlist_id, wishlist
 
-from .models import Product
+from .models import Product, ProductImage
 from category.models import Category
 
 # Create your views here.
@@ -48,6 +48,7 @@ def product_details(request,category_slug,product_slug):
     try:
 
         single_product =Product.objects.get(category__slug=category_slug,slug=product_slug)
+        side_images = ProductImage.objects.filter(product_id=single_product.id)
         in_cart =CartItem.objects.filter(cart__cart_id = _cart_id(request),product=single_product).exists()
 
         in_wishlist = WishlistItem.objects.filter(wishlist__wishlist_id = _wishlist_id(request),product=single_product).exists()
@@ -60,6 +61,7 @@ def product_details(request,category_slug,product_slug):
         'single_product':single_product,
         'in_cart':in_cart,
         'in_wishlist':in_wishlist,
+        'side_images':side_images,
     }       
 
 
