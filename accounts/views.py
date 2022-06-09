@@ -2,7 +2,7 @@
 from multiprocessing import context
 import random
 from unicodedata import category
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import authenticate, login, logout
 from carts.models import Cart, CartItem
 from carts.views import _cart_id
@@ -38,11 +38,113 @@ def signin(request):
                 is_cart_item = CartItem.objects.filter(cart=cart).exists()
 
                 if is_cart_item:
-                    cart_item = CartItem.objects.filter(cart=cart)
-                    for item in cart_item:
+                    cart_items= CartItem.objects.filter(cart=cart)
+                    print(cart_items)
 
-                        item.user=user
-                        item.save()
+
+                    for cart_item in cart_items:
+
+                    
+                    
+                        try :
+
+                            
+                            if CartItem.objects.filter(user=user).exists():
+
+                                user_cart_items=CartItem.objects.filter(user=user)
+                            else:    
+                                user_cart_items= get_object_or_404(user=user)
+
+                            print(user_cart_items)
+                            
+
+                                
+                                
+
+                            for user_cart_item in user_cart_items:
+                                print('second_loop')
+
+                                if str(cart_item) == str(user_cart_item):
+
+                                    print(cart_item.quantity)
+                                    print(user_cart_item.quantity)
+
+                                    user_cart_item.quantity += cart_item.quantity
+
+
+                                    user_cart_item.save()
+
+                                else:
+
+                                    cart_item.user=user
+                                    cart_item.save()    
+
+
+
+
+
+                        except :
+
+                            print('in except')
+
+                            cart_item.user=user
+                            cart_item.save()
+                    
+
+                    # some = CartItem.objects.filter(user=user).exists()
+                    # print(some)cart_items= CartItem.objects.filter(user=user)
+                    # if some:
+
+                    #     list=[]
+                        
+
+                    #     for item in cart_item:
+                            
+
+                        
+                    #         cart_items= CartItem.objects.filter(user=user)
+                    #         print(cart_items)
+                    #         print(item)
+                    #         # print(list)
+
+                    #         for i in cart_items:
+                    #             print(i)
+                                
+                            
+                                
+
+                    #             if str(item) == str(i):
+
+                    #                 print('in_if')
+
+                    #                 print(item.product.id)
+                    #                 print(i.product.id)
+
+                    #                 # pro = CartItem.objects.get(product__id = item.product.id)
+                    #                 # print(pro)
+                                    
+
+                    #                 i.quantity += 1
+                    #                 i.save()
+                    #             else: 
+
+
+                    #                 print('first_else')       
+
+
+                                
+
+                    #                 item.user=user
+                    #                 item.save()
+
+                    # else:      
+                    #     print('second_else')  
+
+
+                            
+
+                    #     item.user=user
+                    #     item.save()            
             except:
                 pass 
 
@@ -84,6 +186,8 @@ def signout(request):
 
 
 def home(request):
+
+    
     
 
     products=Product.objects.all().filter(is_available=True)
@@ -120,7 +224,7 @@ def signup(request):
             messages.error(request,'password not same')  
 
         else:
-            user = Account.objects.create_user(first_name=first_name, password=password1, email=email,last_name=last_name, phone_number=phone_number)
+            user = Account.objects.create_user(first_name=first_name, password=password1, email=email,last_name=last_name, phone_number=phone_number,is_active=True)
 
             user.save()
                 
@@ -228,4 +332,13 @@ def user_order_details(request,order_id,total=0):
     }
 
 
-    return render (request,'user_order_details.html',context)                  
+    return render (request,'user_order_details.html',context)    
+
+
+
+
+
+
+
+    
+

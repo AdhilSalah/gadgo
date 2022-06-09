@@ -33,4 +33,5 @@ urlpatterns = [
     path('wishlist/',include('wishlists.urls')),
     path('proadmin/',include('proadmin.urls')),
     path('orders1/',include('orders1.urls')),
+    path('accounts/', include('allauth.urls')),
 ] + static (settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

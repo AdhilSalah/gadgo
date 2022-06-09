@@ -129,11 +129,11 @@ def remove_item_fully(request,product_id):
     product = get_object_or_404(Product,id=product_id)
 
     if request.user.is_authenticated:
-        cart_item =CartItem.objects.get(product=product,user=request.user)
+        cart_item =CartItem.objects.filter(product=product,user=request.user)
 
     else:    
         cart = Cart.objects.get(cart_id=_cart_id(request))  
-        cart_item =CartItem.objects.get(product=product,cart=cart)
+        cart_item =CartItem.objects.filter(product=product,cart=cart)
 
 
 

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{%load socialaccount %}
 <html lang="en">
 
 <head>
@@ -82,7 +83,7 @@
                         <div class="card-body px-4 py-5 px-md-5">
 
                             
-                            <form method="post">
+                            <form method="post" action="{%url 'signin'%}">
                               
                                 {%csrf_token%}
 
@@ -108,10 +109,16 @@
                                     Login
                                 </button>
                                 <P>Don't have a account ?</P>
-                                <a type="button" href="{% url 'signup'%}" class="btn btn-info btn-block w-10px mb-4">
+                                <a type="button" name="button" href="{% url 'signup'%}" class="btn btn-info btn-block w-10px mb-4">
                                     signup
                                 </a>
                             </form>
+
+                             <a href="{% provider_login_url 'google'  %}">Login with Google</a>
+
+                             
+                            
+                             
                             
 
 
@@ -140,4 +147,6 @@
 
 </body>
 
+
 </html>
+

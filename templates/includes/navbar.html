@@ -1,4 +1,5 @@
 {%load static%}
+{%load socialaccount %}
 <header>
     <!-- TOP HEADER -->
     <div id="top-header">
@@ -6,7 +7,7 @@
             <ul class="header-links pull-left">
                 <li><a href="#"><i class="fa fa-phone"></i></a></li>
                 <li><a href="#"><i class="fa fa-envelope-o"></i> </a></li>
-                <li><a href="#"><i class="fa fa-map-marker"></i> </a></li>
+                <li><a href="{% provider_login_url 'google'  %}"><i class="fa fa-google"></i> </a></li>
             </ul>
             <ul class="header-links pull-right">
                 <li><a href="#"><i class="fa fa-rupee"></i> INR</a></li>
@@ -19,7 +20,7 @@
             </ul>
         </div>
     </div>
-    <!-- /TOP HEADER -->
+   
 
     <!-- MAIN HEADER -->
     <div id="header">

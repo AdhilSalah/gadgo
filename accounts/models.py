@@ -20,7 +20,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
 class MyAccountManager(BaseUserManager):
-    def create_user(self,  email, first_name,last_name, phone_number,password=None):
+    def create_user(self,  email, first_name,last_name, phone_number,password=None,is_active=True):
         """
         Creates and saves a User with the given email, date of
         birth and password.
@@ -35,6 +35,7 @@ class MyAccountManager(BaseUserManager):
             first_name=first_name,
             last_name=last_name,
             phone_number = phone_number,
+            is_active = True
             
 
 
@@ -45,8 +46,9 @@ class MyAccountManager(BaseUserManager):
 
         user.set_password(password)
         
-
+        
         user.save(using=self._db)
+       
         return user
 
     def create_superuser(self,  email,first_name,last_name, phone_number,password, username=None):
@@ -107,3 +109,24 @@ class Account(AbstractBaseUser):
         "Does the user have permissions to view the app `app_label`?"
         # Simplest possible answer: Yes, always
         return True
+
+from allauth.socialaccount.signals import pre_social_login
+from allauth.account.signals import user_signed_up
+from django.dispatch import receiver
+from carts.models import Cart,CartItem
+from carts.views import _cart_id
+
+from django.shortcuts import get_object_or_404
+
+
+@receiver(user_signed_up)
+def user_signed_up_(request, user, **kwargs):
+
+    user.is_active = True
+    user.is_staff = False
+    
+
+    user.save()
+
+
+

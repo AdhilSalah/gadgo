@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'category',
     'accounts',
     'store',
@@ -45,6 +46,12 @@ INSTALLED_APPS = [
     'wishlists',
     'proadmin',
     'orders1',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'crispy_forms',
     
 ]
 
@@ -91,7 +98,7 @@ AUTH_USER_MODEL = 'accounts.Account'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'project',
+        'NAME': 'secondgadgo',
         'USER': 'postgres',
         'PASSWORD': '503070',
         'HOST': 'localhost',
@@ -158,3 +165,37 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ACCOUNT_SID ='ACfb19a27d6e30d157152972351faa6784'
 AUTH_TOKEN ='373f622b11ebac83aed8676b0b704eb0'
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+]
+
+SITE_ID = 3
+LOGIN_REDIRECT_URL = 'home'
+
+# Additional configuration settings
+SOCIALACCOUNT_QUERY_EMAIL = True
+ACCOUNT_LOGOUT_ON_GET= True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_REQUIRED = True
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
+
+
+
