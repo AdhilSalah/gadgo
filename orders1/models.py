@@ -20,9 +20,9 @@ class Order(models.Model):
 
     STATUS = (
         ('New', 'New'),
-        ('Accepted','Accepted'),
-        ('Completed','Completed'),
-        ('Cancelled','Cancelled'),
+        ('Shipped','Shipped'),
+        ('Out for Delivery','Out for Delivey'),
+        ('Delivered','Delivered'),
     )
 
     user = models.ForeignKey(Account,on_delete=models.SET_NULL,null = True)
@@ -54,7 +54,7 @@ class Order(models.Model):
     tax = models.FloatField()
     zipcode = models.IntegerField(null=True)
 
-    status = models.CharField(max_length=10,choices=STATUS,default='New')
+    status = models.CharField(max_length=20,choices=STATUS,default='New')
 
     ip = models.CharField(blank=True, max_length=20)
 

@@ -1,4 +1,5 @@
 
+from audioop import add
 from multiprocessing import context
 import random
 from unicodedata import category
@@ -192,10 +193,15 @@ def home(request):
 
     products=Product.objects.all().filter(is_available=True)
     category =Category.objects.all()
+    top_pro = Product.objects.all().order_by('stock')
+
+
+
 
     context={
         'products':products,
         'category':category,
+        'top_pro':top_pro,
     }
 
     return render(request,'index.html',context) 
@@ -239,10 +245,13 @@ def user_details(request):
 
     if request.user.is_authenticated:
 
+        address = ShippingAddress.objects.filter(user=request.user).exists() 
+
         user = Account.objects.get(id=request.user.id)
 
         context={
             'user':user,
+            'address':address
         }
 
 
@@ -333,6 +342,91 @@ def user_order_details(request,order_id,total=0):
 
 
     return render (request,'user_order_details.html',context)    
+
+def user_default_address(request):
+
+    address = ShippingAddress.objects.get(user=request.user)
+    context={
+        'address':address,
+    }
+
+    return render(request,'default_address.html',context)   
+
+
+def edit_address(request):
+    address = ShippingAddress.objects.get(user=request.user)
+
+        
+
+    if request.method=='POST':
+
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        address1 = request.POST['address']
+        city = request.POST['city']
+        state = request.POST['state']
+        country = request.POST['country']
+        zipcode = request.POST['zipcode']
+
+        
+        address = ShippingAddress.objects.get(user=request.user)
+        address.first_name = first_name
+        address.last_name = last_name
+        address.email = email
+        address.phone = phone
+        address.address = address1
+        address.city = city
+        address.state = state
+        address.country = country
+        address.zipcode = zipcode
+        address.save()
+
+        messages.success(request,'Address edited sucessfully')
+
+
+
+        
+
+    context={
+        'address':address
+    } 
+
+    return render(request,'edit_address.html',context) 
+
+def add_address(request):
+
+
+    if request.method=='POST':
+
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        address1 = request.POST['address']
+        city = request.POST['city']
+        state = request.POST['state']
+        country = request.POST['country']
+        zipcode = request.POST['zipcode']
+        address=ShippingAddress.objects.create(
+                user=request.user,
+                first_name = first_name,
+                last_name = last_name,
+                email = email,
+                phone = phone,
+                address = address1,
+                city = city,
+                state = state,
+                country = country,
+                zipcode = zipcode,
+                
+            )   
+        address.save()
+    return render(request,'edit_address.html') 
+
+
+          
 
 
 

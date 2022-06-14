@@ -2,10 +2,10 @@
 {%load socialaccount %}
 <header>
     <!-- TOP HEADER -->
-    <div id="top-header">
+    <div class="col-m-4"id="top-header">
         <div class="container">
-            <ul class="header-links pull-left">
-                <li><a href="#"><i class="fa fa-phone"></i></a></li>
+            <ul class="header-links pull-left ">
+                <li class="col-m-none"><a href="#"><i class="fa fa-phone"></i></a></li>
                 <li><a href="#"><i class="fa fa-envelope-o"></i> </a></li>
                 <li><a href="{% provider_login_url 'google'  %}"><i class="fa fa-google"></i> </a></li>
             </ul>
@@ -41,7 +41,7 @@
                 <!-- SEARCH BAR -->
                 <div class="col-md-6">
                     <div class="header-search">
-                        <form>
+                        <form method="get" action="{%url 'search' %}">
                             <select class="input-select">
 
 
@@ -49,8 +49,8 @@
 
 
                             </select>
-                            <input class="input" placeholder="Search here">
-                            <button class="search-btn">Search</button>
+                            <input class="input" placeholder="Search here" name="keyword">
+                            <button type="submit" class="search-btn">Search</button>
 
                         </form>
                     </div>
@@ -167,3 +167,4 @@
     <!-- /container -->
 </nav>
 <!-- /NAVIGATION -->
+

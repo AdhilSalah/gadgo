@@ -10,7 +10,8 @@
             <a href="">Show All</a>
         </div>
         <div class="table-responsive">
-            <table class="table text-start align-middle pr-2 table-bordered table-hover mb-0">
+            
+            <table class="table text-start align-middle pr-2 table-bordered table-hover mb-0" id="table_user">
                 <thead>
                     <tr class="text-dark">
                         <th scope="col"><input class="form-check-input" type="checkbox"></th>
@@ -39,7 +40,7 @@
 
                         {%if user.is_active%}
                         
-                        <td><a class=" confirm-block btn btn-sm btn-danger" href="{%url 'admin_user_disable' user.id %}">Block</a></td>
+                        <td><a class=" confirm-blockpro btn btn-sm btn-danger" href="{%url 'admin_user_disable' user.id %}">Block</a></td>
                         {%else%}
                         <td><a class="confirm-unblock btn btn-sm btn-secondary" href="{%url 'admin_user_activate' user.id %}">Unblock</a></td>
                         {%endif%}
@@ -54,16 +55,29 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{%static 'admin/lib/chart/chart.min.js'%}"></script>
-<script src="{%static 'admin/lib/easing/easing.min.js'%}"></script>
-<script src="{%static 'admin/lib/waypoints/waypoints.min.js'%}"></script>
-<script src="{%static 'admin/lib/owlcarousel/owl.carousel.min.js'%}"></script>
-<script src="{%static 'admin/lib/tempusdominus/js/moment.min.js'%}"></script>
-<script src="{%static 'admin/lib/tempusdominus/js/moment-timezone.min.js'%}"></script>
-<script src="{%static 'admin/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js'%}"></script>
+<script src="{%static 'adminpro/lib/chart/chart.min.js'%}"></script>
+<script src="{%static 'adminpro/lib/easing/easing.min.js'%}"></script>
+<script src="{%static 'adminpro/lib/waypoints/waypoints.min.js'%}"></script>
+<script src="{%static 'adminpro/lib/owlcarousel/owl.carousel.min.js'%}"></script>
+<script src="{%static 'adminpro/lib/tempusdominus/js/moment.min.js'%}"></script>
+<script src="{%static 'adminpro/lib/tempusdominus/js/moment-timezone.min.js'%}"></script>
+<script src="{%static 'adminpro/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js'%}"></script>
 
 <!-- Template Javascript -->
-<script src="{%static 'admin/js/main.js'%}"></script>
+<script src="{%static 'adminpro/js/main.js'%}"></script>
+
+<script>
+    var $rows = $('#table_user tr');
+    $('#search').keyup(function() {
+        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+        
+        $rows.show().filter(function() {
+            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+            return !~text.indexOf(val);
+        }).hide();
+    });
+
+</script>
 <script>
     $(document).on('click', '.confirm-block', function(){
         return confirm('Are you sure you want to block this User?');

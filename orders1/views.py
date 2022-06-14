@@ -1,4 +1,5 @@
 
+from audioop import add
 import datetime
 
 from pyexpat.errors import messages
@@ -7,6 +8,7 @@ from time import strftime
 
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from accounts.models import ShippingAddress
 
 from carts.models import CartItem
 from orders1.models import Order, OrderProduct, Payment
@@ -22,6 +24,27 @@ from store.models import Product
 @login_required(login_url='signin')
 def checkout(request, total=0, quantity=0):
     if request.user.is_authenticated:
+
+        try:
+                if 'test' in request.GET:
+
+                     address = ShippingAddress.objects.get(user=request.user)
+
+                    
+                        
+
+            
+                elif 'test1' in request.GET:
+
+                        address=0 
+                else:
+                    address=0        
+                        
+
+            
+            
+        except ShippingAddress.DoesNotExist:
+            address=0    
 
         cart_items = CartItem.objects.filter(user=request.user)
         for cart_item in cart_items:
@@ -42,6 +65,7 @@ def checkout(request, total=0, quantity=0):
             'total': total,
             'quantity': quantity,
             'cart_items': cart_items,
+            'address':address,
         }
 
     return render(request, 'checkout.html', context)

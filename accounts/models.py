@@ -91,6 +91,7 @@ class Account(AbstractBaseUser):
     is_superadmin = models.BooleanField(default=False)
     otp = models.CharField(max_length=6,null=True)
     uid = models.UUIDField(default=uuid.uuid4)
+    updated_date = models.DateTimeField(auto_now=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name','last_name','phone_number']
@@ -127,6 +128,28 @@ def user_signed_up_(request, user, **kwargs):
     
 
     user.save()
+
+class ShippingAddress(models.Model):
+
+    user = models.ForeignKey(Account,on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
+    email = models.EmailField(max_length=50)
+    phone = models.CharField(max_length=12)
+    address = models.CharField(max_length=50)
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=50)
+    country = models.CharField(max_length=50)
+    zipcode = models.CharField(max_length=10)
+
+
+    def __str__(self):
+
+        return self.user.first_name
+    
+
+
+
 
 
 

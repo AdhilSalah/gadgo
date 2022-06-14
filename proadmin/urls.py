@@ -15,5 +15,8 @@ urlpatterns =[
     path('admin_user_details',views.admin_user_details,name='admin_user_details'),
     path('admin_user_activate/<int:user_id>/',views.admin_user_activate,name='admin_user_activate'),
     path('admin_user_disable/<int:user_id>/',views.admin_user_disable,name='admin_user_disable'),
+    path('payment_view/',views.payment_view,name='payment_view'),
+    path('edit_order/<int:order_id>/',views.edit_order,name='edit_order'),
+
 
 ]

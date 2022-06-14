@@ -10,6 +10,25 @@
 				<div class="row">
 
 					<div class="col-md-7">
+                       
+
+						<div style="display: flex; justify-content: center;">
+                         <div>
+						<form method="get" action="{%url 'checkout' %}">
+                            
+                            <button type="submit"  name ='test' class="">Default Address</button>
+
+                        </form>
+					</div>
+
+						<div style="padding-left: 1rem;">
+						<form method="get" action="{%url 'checkout' %}">
+                            
+                            <button type="submit"  name ='test1' class="">Custom Address</button>
+
+                        </form>
+					</div>
+					</div>
 						<!-- Billing Details -->
 						<div class="billing-details">
 							<div class="section-title">
@@ -18,34 +37,43 @@
 							<form method="post" action="{%url 'place_order'%}">
 								{%csrf_token%}
 							<div class="form-group">
-								<input class="input" type="text" name="first_name" placeholder="First Name">
+								
+								<input class="input" type="text" name="first_name" placeholder="First Name" value="{{address.first_name}}" required>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="last_name" placeholder="Last Name">
+								
+								<input class="input" type="text" name="last_name" placeholder="Last Name"  value="{{address.last_name}}" required>
 							</div>
 							<div class="form-group">
-								<input class="input" type="email" name="email" placeholder="Email">
+								
+								<input class="input" type="email" name="email" placeholder="Email" value="{{address.email}}" required>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="address" placeholder="Address">
+								
+								<input class="input" type="text" name="address" placeholder="Address"  value="{{address.address}}" required>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="city" placeholder="City">
+								
+								<input class="input" type="text" name="city" placeholder="City"  value="{{address.city}}" required>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="country" placeholder="Country">
+								
+								<input class="input" type="text" name="country" placeholder="Country"  value="{{address.country}}" required>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="state" placeholder="Country">
+								<input class="input" type="text" name="state" placeholder="state"  value="{{address.state}}" required>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="zip_code" placeholder="ZIP Code">
+								
+								<input class="input" type="number" name="zip_code" placeholder="ZIP Code"  value="{{address.zipcode}}" required>
 							</div>
 							<div class="form-group">
-								<input class="input" type="tel" name="phone_number" placeholder="Telephone">
+								
+								<input class="input" type="number" name="phone_number" placeholder="Telephone"  value="{{address.phone}}" required>
 							</div>
 							<div class="order-notes">
-								<textarea class="input"  name="order_note"placeholder="Order Notes"></textarea>
+								
+								<textarea class="input"  name="order_note"placeholder="Order Notes" required></textarea>
 							</div>
 						
 							

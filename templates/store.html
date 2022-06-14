@@ -14,44 +14,48 @@
 			<!-- ASIDE -->
 			<div id="aside" class="col-md-3">
 				<!-- aside Widget -->
-				<div class="aside">
+				<!-- <div class="aside">
 					<h3 class="aside-title">Categories</h3>
 					<div class="checkbox-filter">
 
 						{%for category in links%}
 
 						<div class="input-checkbox">
-							<input type="checkbox" id="category-1">
-							<label for="category-1">
+							<input type="checkbox" id="{{category.id}}">
+							<label for="{{category.id}}">
 								<span></span>
 								{{category.category_name}}
-								<small>(0)</small>
+								<small>{{category.product.count}}</small>
 							</label>
 						</div>
 						{%endfor%}
 
 
 					</div>
-				</div>
+				</div> -->
 				<!-- /aside Widget -->
 
 				<!-- aside Widget -->
 				<div class="aside">
 					<h3 class="aside-title">Price</h3>
+					<form action="{%url 'filter_product' %}" method="post">
+						{%csrf_token%}
 					<div class="price-filter">
 						<div id="price-slider"></div>
 						<div class="input-number price-min">
-							<input id="price-min" type="number">
+							<input  type="number" name="min_price">
 							<span class="qty-up">+</span>
 							<span class="qty-down">-</span>
 						</div>
 						<span>-</span>
 						<div class="input-number price-max">
-							<input id="price-max" type="number">
+							<input  type="number" name="max_price">
 							<span class="qty-up">+</span>
 							<span class="qty-down">-</span>
 						</div>
 					</div>
+					<button type="submit">submit</button>
+				</form>
 				</div>
 				<!-- /aside Widget -->
 
@@ -111,43 +115,7 @@
 				</div>
 				<!-- /aside Widget -->
 
-				<!-- aside Widget -->
-				<div class="aside">
-					<h3 class="aside-title">Top selling</h3>
-					<div class="product-widget">
-						<div class="product-img">
-							<img src="./img/product01.png" alt="">
-						</div>
-						<div class="product-body">
-							<p class="product-category">Category</p>
-							<h3 class="product-name"><a href="#">product name goes here</a></h3>
-							<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-						</div>
-					</div>
-
-					<div class="product-widget">
-						<div class="product-img">
-							<img src="./img/product02.png" alt="">
-						</div>
-						<div class="product-body">
-							<p class="product-category">Category</p>
-							<h3 class="product-name"><a href="#">product name goes here</a></h3>
-							<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-						</div>
-					</div>
-
-					<div class="product-widget">
-						<div class="product-img">
-							<img src="./img/product03.png" alt="">
-						</div>
-						<div class="product-body">
-							<p class="product-category">Category</p>
-							<h3 class="product-name"><a href="#">product name goes here</a></h3>
-							<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-						</div>
-					</div>
-				</div>
-				<!-- /aside Widget -->
+				
 			</div>
 			<!-- /ASIDE -->
 
@@ -182,16 +150,16 @@
 				<!-- store products -->
 				<div class="row">
 					<!-- product -->
-					{%for products in store_products%}
+					{%for products in page_obj%}
 					<div class="col-md-4 col-xs-6">
 						<br>
 						<div class="product" style="height: 500px;">
 							<div class="product-img">
 								<img src="{{products.image.url}}" alt="" style="height: 250px;width:250px; object-fit: contain;">
-								<div class="product-label">
+								<!-- <div class="product-label">
 									<span class="sale">-30%</span>
 									<span class="new">NEW</span>
-								</div>
+								</div> -->
 							</div>
 							<div class="product-body">
 								<p class="product-category">{{products.category}}</p>
@@ -200,17 +168,27 @@
 								<h4 class="product-price">${{products.price}} <del
 										class="product-old-price">$990.00</del></h4>
 								<div class="product-rating">
+									{%if products.rating_dummy >= 1%}
 									<i class="fa fa-star"></i>
+									{%endif%}
+									{%if products.rating_dummy >= 2%}
 									<i class="fa fa-star"></i>
+									{%endif%}
+									{%if products.rating_dummy >= 3%}
 									<i class="fa fa-star"></i>
+									{%endif%}
+									{%if products.rating_dummy >= 4%}
 									<i class="fa fa-star"></i>
+									{%endif%}
+									{%if products.rating_dummy >= 5%}
 									<i class="fa fa-star"></i>
+									{%endif%}
 								</div>
 								<div class="product-btns">
 									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i></a><span
 											class="tooltipp">add to wishlist</span></button>
 									<button class="add-to-compare"><a href="{%url 'add_cart' products.id %}"><i class="fa fa-shopping-cart"></i></a><span
-											class="tooltipp">add to compare</span></button>
+											class="tooltipp">add to cart</span></button>
 									<button class="quick-view"><a href="{{ products.get_url }}"><i
 												class="fa fa-eye"></i></a><span class="tooltipp">quick
 											view</span></button>
@@ -236,7 +214,7 @@
 
 
 
-
+					
 
 
 
@@ -249,13 +227,18 @@
 
 				<!-- store bottom filter -->
 				<div class="store-filter clearfix">
-					<span class="store-qty">Showing 20-100 products</span>
+					<span class="store-qty">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
 					<ul class="store-pagination">
-						<li class="active">1</li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+						{% if page_obj.has_previous %}
+						<li><a href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left"></i></a></li>
+						{% endif %}
+						<li class="active"><a href="?page=1">1</li></a>
+						<li><a href="?page=2">2</a></li>
+						<li><a href="?page=3">3</a></li>
+						<li><a href="?page=4">4</a></li>
+						{% if page_obj.has_next %}
+						<li><a href="?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
+						{% endif %}
 					</ul>
 				</div>
 				<!-- /store bottom filter -->

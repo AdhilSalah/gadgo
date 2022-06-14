@@ -132,7 +132,7 @@ def super_home_logout(request):
 
 def super_home_orders(request):
 
-    orders = Order.objects.filter(is_ordered=True)
+    orders = Order.objects.order_by('-created_at').filter(is_ordered=True)
     context={
         'orders':orders,
     }
@@ -235,7 +235,7 @@ def delete_product(request,product_id):
 
 def admin_user_details(request):
 
-    users=Account.objects.all()
+    users=Account.objects.order_by('-updated_date').all()
     context={
         'users':users,
     }
@@ -259,5 +259,30 @@ def admin_user_disable(request,user_id):
     user.save()
 
 
-    return redirect('admin_user_details')    
+    return redirect('admin_user_details')   
+
+def payment_view(request):
+
+    payment = Payment.objects.order_by('-created_at').all()
+
+    context ={
+        'payment':payment
+    }
+
+
+    return render(request,'adminpro/admin_payment.html',context)     
+
+
+def edit_order(request,order_id):
+
+    order = Order.objects.get(id=order_id)
+
+    if request.method=='POST':
+
+        status = request.POST['status']
+
+        order.status=status
+        order.save()
+
+    return redirect('super_home_orders')    
 
