@@ -1,11 +1,6 @@
 
-from ast import keyword
-import email
-from itertools import count, product
 from math import floor
 from pyexpat.errors import messages
-from queue import PriorityQueue
-from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, render, redirect
 from razorpay import Order
 
