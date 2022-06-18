@@ -31,8 +31,11 @@
     
     <!-- Template Stylesheet -->
     <link href="{%static 'adminpro/css/style.css'%}" rel="stylesheet">
-    
-    
+   
+    <!-- jQuery -->
+
+   
+
 </head>
 
 <body>
@@ -51,6 +54,10 @@
   
     {%include 'adminpro/includes/sidebar.html'%}
     {%include 'adminpro/includes/navbar.html'%}
+
+
+    {%block scripts%}
+    {%endblock scripts%}
 
 
     {%block content%}

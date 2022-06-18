@@ -70,11 +70,11 @@ def cart(request,total=0,quantity=0,cart_items=None):
 
     try:
         if request.user.is_authenticated:
-            cart_items=CartItem.objects.filter(user=request.user,is_active=True)
+            cart_items=CartItem.objects.filter(user=request.user,is_active=True).order_by('-created_date')
 
         else:    
             cart = Cart.objects.get(cart_id = _cart_id(request))
-            cart_items=CartItem.objects.filter(cart=cart,is_active=True)
+            cart_items=CartItem.objects.filter(cart=cart,is_active=True).order_by('-created_date')
         for cart_item in cart_items:
             total +=(cart_item.product.price * cart_item.quantity)
             quantity +=cart_item.quantity

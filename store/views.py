@@ -155,7 +155,7 @@ def search(request):
                 Q(description__icontains=keyword) | Q(product_name__icontains=keyword))
         else:
 
-            store_products = Product.objects.all()
+            store_products = Product.objects.all().order_by('created_date')
     paginator = Paginator(store_products, 6)  # Show 25 contacts per page.
 
     page_number = request.GET.get('page')

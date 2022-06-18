@@ -1,5 +1,7 @@
 
 
+from distutils.command.config import LANG_EXT
+from math import floor
 from django.shortcuts import redirect, render
 
 # Create your views here.
@@ -17,9 +19,35 @@ from store.models import Product, ProductImage
 # Create your views here.
 def super_home(request):
     if request.user.is_authenticated and request.user.is_superadmin:
+        total=0
+        labels=[]
+        data = []
+
+        orders = Order.objects.all()
+
+        for order in orders:
+
+            total += order.order_total
 
 
-        return render(request,'adminpro/index.html')
+            total = floor(total)
+
+
+        products =  Product.objects.all()
+
+        for product in products:
+            labels.append(product.product_name[:10])
+            data.append(product.stock)
+
+        context={
+            'products':products,
+            'labels': labels,
+            'data':data,
+            'total':total,
+        }
+
+
+        return render(request,'adminpro/index.html',context)
     return redirect('super_home_login')    
 
 
