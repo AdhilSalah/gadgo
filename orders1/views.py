@@ -18,6 +18,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from store.models import Product
+from django.conf import Settings, settings
 
 # Create your views here.
 
@@ -132,7 +133,7 @@ def place_order(request, quantity=0):
                 user=current_user, is_ordered=False, order_number=order_number)
 
             client = razorpay.Client(
-                auth=("rzp_test_OFFUs9LlryRh7O", "WpC74jjkJpVzGFSEjyoPKycq"))
+                auth=(str(settings.RAZOR_PAY_ID), str(settings.RAZOR_PAY_SECRET_ID)))
             sum = int(grand_total)
 
             data = ({"amount": sum, "currency": "INR", "payment_capture": "1"})

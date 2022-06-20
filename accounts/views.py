@@ -1,8 +1,4 @@
 
-from audioop import add
-from multiprocessing import context
-import random
-from unicodedata import category
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import authenticate, login, logout
 from carts.models import Cart, CartItem

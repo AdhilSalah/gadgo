@@ -234,7 +234,7 @@ def edit_product(request,product_id):
                 for imageo in images:
                     
                     print('new image',imageo)
-                    print('before assigning',side_images[i].image)
+                    
                     image_new=side_images[i]
                     image_new.image=imageo
                     print('after assiging',image_new.image)
@@ -263,7 +263,7 @@ def delete_product(request,product_id):
 
 def admin_user_details(request):
 
-    users=Account.objects.order_by('-updated_date').all()
+    users=Account.objects.order_by('-updated_date').filter(is_superadmin=False)
     context={
         'users':users,
     }

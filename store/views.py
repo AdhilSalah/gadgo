@@ -208,8 +208,8 @@ def review(request, product_id):
     url = request.META.get('HTTP_REFERER')
 
     try:
-        order = get_object_or_404(
-            OrderProduct, user=user, product_id=product_id)
+
+        
         
 
         product = Product.objects.get(id=product_id)
@@ -218,6 +218,7 @@ def review(request, product_id):
 
             content = request.POST['content']
             star = request.POST['rating']
+            
 
             review = Review.objects.create(
                 user=request.user,
@@ -228,6 +229,7 @@ def review(request, product_id):
             review.save()
 
     except:
+        print('in except')
         pass
 
     return redirect(url)
