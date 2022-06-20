@@ -3,6 +3,7 @@ from math import floor
 from pyexpat.errors import messages
 from django.shortcuts import get_object_or_404, render, redirect
 from razorpay import Order
+from accounts.models import Account
 
 from carts.models import CartItem
 from carts.views import _cart_id
@@ -97,9 +98,11 @@ def product_details(request, category_slug, product_slug):
 
         in_wishlist = WishlistItem.objects.filter(
             wishlist__wishlist_id=_wishlist_id(request), product=single_product).exists()
-
-        is_ordered = OrderProduct.objects.filter(
-            user=request.user, product=single_product).exists()
+        if request.user.is_authenticated:
+            is_ordered = OrderProduct.objects.filter(
+                user=request.user, product=single_product).exists()
+        else:
+            is_ordered=False     
 
     except Exception as e:
         raise e

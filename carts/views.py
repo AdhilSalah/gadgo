@@ -64,7 +64,7 @@ def add_cart(request,product_id):
     return redirect('cart')             
 
 
-def cart(request,total=0,quantity=0,cart_items=None):
+def cart(request,total=0,quantity=0,tax=0,grand_total=0,cart_items=None):
 
     Order.objects.filter(is_ordered=False).delete()
 
