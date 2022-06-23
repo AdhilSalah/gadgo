@@ -350,36 +350,66 @@ def user_default_address(request):
 
 
 def edit_address(request):
-    address = ShippingAddress.objects.get(user=request.user)
 
-        
 
-    if request.method=='POST':
-
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        email = request.POST['email']
-        phone = request.POST['phone']
-        address1 = request.POST['address']
-        city = request.POST['city']
-        state = request.POST['state']
-        country = request.POST['country']
-        zipcode = request.POST['zipcode']
-
-        
+    try:
         address = ShippingAddress.objects.get(user=request.user)
-        address.first_name = first_name
-        address.last_name = last_name
-        address.email = email
-        address.phone = phone
-        address.address = address1
-        address.city = city
-        address.state = state
-        address.country = country
-        address.zipcode = zipcode
-        address.save()
 
-        messages.success(request,'Address edited sucessfully')
+            
+
+        if request.method=='POST':
+
+            first_name = request.POST['first_name']
+            last_name = request.POST['last_name']
+            email = request.POST['email']
+            phone = request.POST['phone']
+            address1 = request.POST['address']
+            city = request.POST['city']
+            state = request.POST['state']
+            country = request.POST['country']
+            zipcode = request.POST['zipcode']
+
+            
+            address = ShippingAddress.objects.get(user=request.user)
+            address.first_name = first_name
+            address.last_name = last_name
+            address.email = email
+            address.phone = phone
+            address.address = address1
+            address.city = city
+            address.state = state
+            address.country = country
+            address.zipcode = zipcode
+            address.save()
+
+            messages.success(request,'Address edited sucessfully')
+    except ShippingAddress.DoesNotExist:
+        if request.method=='POST':
+
+            first_name = request.POST['first_name']
+            last_name = request.POST['last_name']
+            email = request.POST['email']
+            phone = request.POST['phone']
+            address1 = request.POST['address']
+            city = request.POST['city']
+            state = request.POST['state']
+            country = request.POST['country']
+            zipcode = request.POST['zipcode']
+            address=ShippingAddress.objects.create(
+                    user=request.user,
+                    first_name = first_name,
+                    last_name = last_name,
+                    email = email,
+                    phone = phone,
+                    address = address1,
+                    city = city,
+                    state = state,
+                    country = country,
+                    zipcode = zipcode,
+                    
+                )   
+            address.save()
+
 
 
 

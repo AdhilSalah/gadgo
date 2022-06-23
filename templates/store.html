@@ -54,7 +54,7 @@
 							<span class="qty-down">-</span>
 						</div>
 					</div>
-					<button type="submit">submit</button>
+					<button class="btn btn-primary" type="submit">submit</button>
 				</form>
 				</div>
 				<!-- /aside Widget -->
@@ -106,7 +106,7 @@
 									{%endif%}
 								</div>
 								<div class="product-btns">
-									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i></a><span
+									<button class="add-to-wishlist"><a href="{%url 'add_wishlist' products.id %}"><i class="fa fa-heart-o"></i></a><span
 											class="tooltipp">add to wishlist</span></button>
 									<button class="add-to-compare"><a href="{%url 'add_cart' products.id %}"><i class="fa fa-shopping-cart"></i></a><span
 											class="tooltipp">add to cart</span></button>
