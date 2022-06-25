@@ -17,14 +17,14 @@ def _wishlist_id(request):
     if not wishlist:
         wishlist = request.session.create()
 
-        return wishlist
+    return wishlist
 
 
 def add_wishlist(request,product_id):
 
     product = Product.objects.get(id=product_id)  
     try:
-
+        
         wishlist =Wishlist.objects.get(wishlist_id = _wishlist_id(request))
     except Wishlist.DoesNotExist:
 
@@ -76,7 +76,8 @@ def wishlist(request,wishlist_items=None):
             wishlist_items=WishlistItem.objects.filter(user=request.user,is_active=True)
         else:    
             wishlist = Wishlist.objects.get(wishlist_id = _wishlist_id(request))
-            wishlist_items =WishlistItem.objects.filter(wishlist=wishlist,is_active = True)
+        
+            wishlist_items =WishlistItem.objects.filter(wishlist=wishlist)
 
 
     except Wishlist.DoesNotExist:

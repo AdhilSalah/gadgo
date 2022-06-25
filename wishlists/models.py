@@ -16,9 +16,7 @@ class Wishlist(models.Model):
 
 
 
-    def __str__(self):
-
-        return self.wishlist_id
+    
 
 
 

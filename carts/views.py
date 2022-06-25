@@ -19,6 +19,8 @@ def _cart_id(request):
 def add_cart(request,product_id):
     product = Product.objects.get(id=product_id)
 
+    
+
 
     try:
         cart =Cart.objects.get(cart_id=_cart_id(request))

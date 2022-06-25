@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG',default = True,cast = bool)
 
-ALLOWED_HOSTS = ['*','.gadgoelectro.ml']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -176,7 +176,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend'
 ]
 
-SITE_ID = 4
+SITE_ID = 5
 LOGIN_REDIRECT_URL = 'home'
 
 # Additional configuration settings
