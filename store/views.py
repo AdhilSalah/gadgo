@@ -98,9 +98,14 @@ def product_details(request, category_slug, product_slug):
 
         in_wishlist = WishlistItem.objects.filter(
             wishlist__wishlist_id=_wishlist_id(request), product=single_product).exists()
+
+        
         if request.user.is_authenticated:
             is_ordered = OrderProduct.objects.filter(
                 user=request.user, product=single_product).exists()
+            
+            in_wishlist = WishlistItem.objects.filter(
+                user=request.user, product=single_product).exists()    
         else:
             is_ordered=False     
 
