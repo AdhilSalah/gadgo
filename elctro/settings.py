@@ -143,14 +143,38 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-
-STATIC_URL = 'static/'
-
+AWS_ACCESS_KEY_ID = 'AKIAX57JLWLUBHKPYLZ4'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'gadbucketu'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl':'max-age=86400',
+}
+AWS_S3_FILE_OVERWRITE = True
+AWS_DEFAULT_ACL = 'public-read'
+AWS_LOCATION = 'static'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_DIRS=[
-    os.path.join(BASE_DIR, 'static')
+    'static',
 ]
+STATIC_URL = 'http://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-STATIC_ROOT=os.path.join(BASE_DIR,'loaded statics')
+
+
+
+
+
+
+
+
+# STATIC_URL = 'static/'
+
+# STATICFILES_DIRS=[
+#     os.path.join(BASE_DIR, 'static')
+# ]
+
+# STATIC_ROOT=os.path.join(BASE_DIR,'loaded statics')
 
 
 MEDIA_URL='/media/'
