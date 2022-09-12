@@ -230,7 +230,7 @@ def signup(request):
 
             user.save()
                 
-            messages.info(request, "sucess")
+            messages.success(request, " Account Created Successfully")
             return redirect(signin)
 
 
