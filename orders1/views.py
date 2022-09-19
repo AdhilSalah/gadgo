@@ -134,9 +134,9 @@ def place_order(request, quantity=0):
 
             client = razorpay.Client(
                 auth=(str(settings.RAZOR_PAY_ID), str(settings.RAZOR_PAY_SECRET_ID)))
-            sum = int(grand_total)
+            sum = int(100*grand_total)
 
-            data = ({"amount": sum, "currency": "INR", "payment_capture": "1"})
+            data = ({"amount": sum, "currency": "INR", "payment_capture": "0"})
             response = client.order.create(data=data)
             context = {
                 'order': order,
