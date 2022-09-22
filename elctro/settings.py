@@ -143,9 +143,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-AWS_ACCESS_KEY_ID = 'AKIAX57JLWLUBHKPYLZ4'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'gadbucketu'
+AWS_ACCESS_KEY_ID = 'AKIA2TSZADYAJ5O4DYA7'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'mygadbuck'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl':'max-age=86400',
