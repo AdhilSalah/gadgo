@@ -1,6 +1,6 @@
 
 # Gadgo
-Live server = http://13.233.56.121/
+Live server = http://13.233.225.249
 
 Gadgo or Electro is a ecommerce web app for buying electronic gadgets.
 
